@@ -86,6 +86,7 @@ public class CustomerApiController {
 
     @Data
     static class UpdateMemberRequest {
+        @NotEmpty
         private String status;
     }
 
