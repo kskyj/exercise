@@ -2,6 +2,7 @@ package com.example.exercise.service;
 
 import com.example.exercise.domain.Customer;
 import com.example.exercise.exception.DuplicatedException;
+import com.example.exercise.exception.ErrorCode;
 import com.example.exercise.exception.NotFoundException;
 import com.example.exercise.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class CustomerService {
     @Transactional(readOnly = true)
     public void validateDuplicatedCustomer(Customer customer) {
         if (customerRepository.findByCustomerId(customer.getCustomerId()).isPresent()) {
-            throw new DuplicatedException("Duplicated CustomerId");
+            throw new DuplicatedException(ErrorCode.CUSTOMER_DUPLICATED);
         }
     }
 
@@ -45,7 +46,7 @@ public class CustomerService {
     @Transactional(readOnly = true)
     public Customer retrieveByCustomerId(String customerId) {
         return customerRepository.findByCustomerId(customerId)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(() -> new NotFoundException(ErrorCode.CUSTOMER_NOT_FOUND));
     }
 
     @Transactional
