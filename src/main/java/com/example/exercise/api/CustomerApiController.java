@@ -2,10 +2,7 @@ package com.example.exercise.api;
 
 import com.example.exercise.domain.Customer;
 import com.example.exercise.service.CustomerService;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +22,8 @@ public class CustomerApiController {
     @ResponseStatus(HttpStatus.CREATED)
     public CreateCustomerResponse createCustomer(@RequestBody @Valid CreateCustomerRequest request) {
         Customer customer = Customer.builder()
-                .customerId(request.customerId)
-                .status(request.status)
+                .customerId(request.getCustomerId())
+                .status(request.getStatus())
                 .build();
         Long id = customerService.saveCustomer(customer);
         return new CreateCustomerResponse(id);
@@ -75,8 +72,7 @@ public class CustomerApiController {
     }
 
 
-    @Data
-    @AllArgsConstructor
+    @Getter
     @Builder
     static class CustomerDto {
         private Long id;
@@ -84,28 +80,29 @@ public class CustomerApiController {
         private String status;
     }
 
-    @Data
+    @Builder
+    @Getter
     static class UpdateMemberRequest {
         @NotEmpty
         private String status;
     }
 
-    @Data
-    @AllArgsConstructor
     @Builder
     static class UpdateMemberResponse {
         private String customerId;
         private String status;
     }
 
-    @Data
+    @Builder
+    @Getter
     static class CreateCustomerRequest {
         @NotEmpty
         private String customerId;
         private String status;
     }
 
-    @Data
+    @Builder
+    @Getter
     static class CreateCustomerResponse {
         private Long id;
 
