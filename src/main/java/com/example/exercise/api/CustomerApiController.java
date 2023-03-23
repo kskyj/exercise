@@ -72,6 +72,9 @@ public class CustomerApiController {
     }
 
 
+//    @Data
+    @AllArgsConstructor
+    @RequiredArgsConstructor
     @Getter
     @Builder
     static class CustomerDto {
@@ -80,29 +83,36 @@ public class CustomerApiController {
         private String status;
     }
 
-    @Builder
+//    @Data
     @Getter
+    @RequiredArgsConstructor
     static class UpdateMemberRequest {
         @NotEmpty
         private String status;
     }
 
+//    @Data
+    @RequiredArgsConstructor
+    @Getter
+    @AllArgsConstructor
     @Builder
     static class UpdateMemberResponse {
         private String customerId;
         private String status;
     }
 
-    @Builder
+//    @Data
     @Getter
+    @RequiredArgsConstructor
     static class CreateCustomerRequest {
         @NotEmpty
         private String customerId;
         private String status;
     }
 
-    @Builder
+//    @Data
     @Getter
+    @RequiredArgsConstructor
     static class CreateCustomerResponse {
         private Long id;
 
